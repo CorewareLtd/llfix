@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,28 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <string>
+#include "../command.h"
+#include "../management_context.h"
+
+#include "../../core/os/vdso.h"
+
+namespace llfix
+{
+
+class CommandUptime : public Command
+{
+    public:
+        std::string process(ManagementContext& context) override
+        {
+            auto now = VDSO::nanoseconds_monotonic();
+            auto delta = now - context.application_start_timestamp;
+            delta = static_cast<uint64_t>(delta / 1'000'000'000); // Convert to seconds
+            return std::to_string(delta);
+        }
+};
+
+} // namespace

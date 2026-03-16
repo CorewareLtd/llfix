@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#if defined(__linux__) && (defined(__GNUC__) || defined(__clang__))
+    // For a list of attribute values : https://gcc.gnu.org/onlinedocs/gcc/x86-Function-Attributes.html#index-target-function-attribute-4
+    #define LLFIX_SIMD_TARGET_AVX  __attribute__((target("avx")))
+    #define LLFIX_SIMD_TARGET_AVX2 __attribute__((target("avx2")))
+    #define LLFIX_SIMD_TARGET_AVX512FBW __attribute__((target("avx512f,avx512bw")))
+#elif _MSC_VER
+    // Not needed on MSVC
+    #define LLFIX_SIMD_TARGET_AVX
+    #define LLFIX_SIMD_TARGET_AVX2
+    #define LLFIX_SIMD_TARGET_AVX512FBW
+#endif

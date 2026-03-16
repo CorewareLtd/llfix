@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,42 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <cstddef>
+#include <vector>
+#include <string>
+
+namespace llfix
+{
+
+// Fwd declaration
+struct ManagementContext;
+
+class Command
+{
+    public:
+
+        Command()
+        {
+            m_parameters.reserve(MAX_PARAM_COUNT);
+        }
+
+        virtual ~Command()
+        {
+        }
+
+        void add_parameter(const std::string& param)
+        {
+            m_parameters.push_back(param);
+        }
+
+        virtual std::string process(ManagementContext&) = 0;
+
+    protected:
+        std::vector<std::string> m_parameters;
+        static inline constexpr std::size_t MAX_PARAM_COUNT = 4;
+};
+
+} // namespace

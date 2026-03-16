@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#ifdef __linux__ // VOLTRON_EXCLUDE
+#include <sys/mman.h>
+#endif // VOLTRON_EXCLUDE
+
+namespace llfix
+{
+
+class VirtualMemory
+{
+    public:
+        static bool lock_all_pages()
+        {
+            bool ret{ false };
+            #ifdef __linux__
+            ret = mlockall(MCL_CURRENT | MCL_FUTURE) == 0 ? true : false;
+            #elif _WIN32
+            ret = false; // No equivalent on Windows , you have to use VirtualLock per individual page
+            #endif
+            return ret;
+        }
+};
+
+} // namespace

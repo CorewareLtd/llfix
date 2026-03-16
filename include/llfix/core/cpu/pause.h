@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <cstdint>
+#include <immintrin.h>
+
+namespace llfix
+{
+
+inline void pause(uint32_t repeat_count=1)
+{
+    for (uint32_t i = 0; i < repeat_count; ++i)
+    {
+        _mm_pause();
+    }
+}
+
+} // namespace

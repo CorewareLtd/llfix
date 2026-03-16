@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <string>
+
+namespace llfix
+{
+    enum class IncomingThrottlerAction
+    {
+        NONE,
+        WAIT,
+        REJECT,
+        DISCONNECT
+    };
+
+    inline IncomingThrottlerAction string_to_incoming_throttler_action(const std::string& val)
+    {
+        IncomingThrottlerAction ret= IncomingThrottlerAction::NONE;
+
+        if(val == "WAIT")
+        {
+            ret = IncomingThrottlerAction::WAIT;
+        }
+        else if (val == "REJECT")
+        {
+            ret = IncomingThrottlerAction::REJECT;
+        }
+        else if (val == "DISCONNECT")
+        {
+            ret = IncomingThrottlerAction::DISCONNECT;
+        }
+
+        return ret;
+    }
+}

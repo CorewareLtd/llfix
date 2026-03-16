@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,28 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <cstdint>
+
+namespace llfix
+{
+
+enum class ModifyingAdminCommandType
+{
+    SET_INCOMING_SEQUENCE_NUMBER,
+    SET_OUTGOING_SEQUENCE_NUMBER,
+    SEND_SEQUENCE_RESET,
+    ENABLE_SESSION,
+    DISABLE_SESSION,
+    SET_IS_HA_PRIMARY_INSTANCE
+};
+
+struct ModifyingAdminCommand
+{
+    ModifyingAdminCommandType type;
+    uint32_t arg=0;
+};
+
+} // namespace

@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,43 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <string>
+#include "../command.h"
+#include "../management_context.h"
+
+#include "../../electronic_trading/session/session_state.h"
+
+namespace llfix
+{
+
+class CommandGetSessionState : public Command
+{
+    public:
+        std::string process(ManagementContext& context) override
+        {
+            if (m_parameters.size() < 2)
+            {
+                return "Missing parameter(s)";
+            }
+
+            std::string ret;
+            ////////////////////////////////////////////////////////////////////////////
+            auto session = context.get_session(m_parameters[0], m_parameters[1]);
+
+            if (session)
+            {
+                ret = convert_session_state_to_string(session->get_state());
+            }
+            else
+            {
+                ret = "No results";
+            }
+
+            return ret;
+        }
+};
+
+} // namespace

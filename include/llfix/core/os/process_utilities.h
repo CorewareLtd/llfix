@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,28 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#if __linux__ // VOLTRON_EXCLUDE
+#include <unistd.h>
+#endif // VOLTRON_EXCLUDE
+
+namespace llfix
+{
+
+class ProcessUtilities
+{
+    public:
+
+        static bool has_root_privileges()
+        {
+            #if __linux__
+            return (geteuid() == 0);
+            #elif _WIN32
+            return true; // Not supported on Windows
+            #endif
+        }
+};
+
+} // namespace

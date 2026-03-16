@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,36 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <string>
+#include "../command.h"
+#include "../management_context.h"
+#include "../../core/utilities/logger.h"
+#include "../../core/compiler/unused.h"
+
+namespace llfix
+{
+
+class CommandEngineSetLogLevel : public Command
+{
+    public:
+        std::string process(ManagementContext& context) override
+        {
+            LLFIX_UNUSED(context);
+
+            if (m_parameters.size() < 1)
+            {
+                return "Missing parameter(s)";
+            }
+
+            auto log_level = Logger<>::convert_string_to_log_level(m_parameters[0]);
+
+            Logger<>::get_instance().set_log_level(log_level);
+
+            return "Successfully set the engine log level";
+        }
+};
+
+} // namespace

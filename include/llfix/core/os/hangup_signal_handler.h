@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <csignal>
+#include "../compiler/unused.h"
+
+namespace llfix
+{
+
+class HangupSignalHandler
+{
+    public:
+        // Sighup ignoring option is against people who try to start background processes via Putty
+        static void set_ignore(bool flag)
+        {
+            if(flag)
+            {
+                #ifdef __linux__
+                signal(SIGHUP, SIG_IGN);
+                #else
+                LLFIX_UNUSED(flag);
+                #endif
+            }
+            else
+            {
+                LLFIX_UNUSED(flag);
+            }
+        }
+    private:
+};
+
+} // namespace

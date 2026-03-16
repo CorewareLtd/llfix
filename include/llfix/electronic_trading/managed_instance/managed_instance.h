@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <cstdint>
+#include <vector>
+#include <string>
+
+#include "modifying_admin_command.h"
+#include "managed_instance_session.h"
+
+namespace llfix
+{
+
+class ManagedInstance
+{
+    public:
+        virtual ~ManagedInstance() = default;
+        virtual std::string get_name() const = 0;
+        virtual std::string get_settings_as_string(const std::string& delimiter) = 0;
+        virtual void push_admin_command(const std::string& session_name, ModifyingAdminCommandType type, uint32_t arg = 0) = 0;
+        virtual void get_session_names(std::vector<std::string>& target) = 0;
+        virtual bool is_instance_ha_primary() const = 0;
+        virtual ManagedInstanceSession* get_session(const std::string& session_name="") = 0;
+};
+
+}

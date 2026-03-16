@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,40 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <string>
+#include "../command.h"
+#include "../management_context.h"
+#include "../../core/utilities/logger.h"
+#include "../../core/compiler/unused.h"
+
+namespace llfix
+{
+
+class CommandEngineGetLogLevel : public Command
+{
+    public:
+        std::string process(ManagementContext& context) override
+        {
+            LLFIX_UNUSED(context);
+
+            auto log_level = Logger<>::get_instance().get_log_level();
+            std::string ret;
+
+            switch (log_level)
+            {
+                case LogLevel::LEVEL_FATAL: ret = "FATAL"; break;
+                case LogLevel::LEVEL_ERROR: ret = "ERROR"; break;
+                case LogLevel::LEVEL_WARNING: ret = "WARNING"; break;
+                case LogLevel::LEVEL_INFO: ret = "INFO"; break;
+                case LogLevel::LEVEL_DEBUG: ret = "DEBUG"; break;
+                default: ret = "NONE"; break;
+            }
+
+            return ret;
+        }
+};
+
+} // namespace

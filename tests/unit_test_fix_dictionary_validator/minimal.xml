@@ -1,0 +1,114 @@
+<fix type='FIX' major='4' minor='0' servicepack='0'>
+ <header>
+  <field name='One' required='Y' />
+  <field name='Two' required='N' />
+ </header>
+ <messages>
+  <message name='Custom' msgtype='6' msgcat='app'>
+   <field name='Three' required='Y' />
+   <field name='Four' required='N' />
+   <component name='ComponentOne' required='Y' />
+   <component name='ComponentTwo' required='N' />
+   <group name='NoGroupOne' required='N'>
+    <field name='Five' required='N' />
+    <field name='Seventeen' required='Y' />
+   </group>
+   <group name='NoGroupTwo' required='Y'>
+    <field name='Eighteen' required='N' />
+    <field name='Nineteen' required='Y' />
+    <component name='PtysSubGrp' required='N' />
+    <component name='ComponentNestedInGroup' required='Y' />
+    <group name='NoGroupNested' required='Y'>
+     <field name='TwentyTwo' required='N' />
+     <field name='TwentyThree' required='Y' />
+   </group>
+   </group>
+  </message>
+ </messages>
+ <trailer>
+  <field name='Six' required='Y' />
+  <field name='Seven' required='N' />
+ </trailer>
+ <components>
+  <component name='ComponentOne'>
+   <field name='SixyNine' required='Y' />
+   <field name='Ten' required='N' />
+   <component name='ComponentNestedOne' required='Y' />
+   <component name='ComponentNestedTwo' required='N' />
+  </component>
+  <component name='ComponentTwo'>
+   <field name='Eleven' required='Y' />
+   <field name='Twelve' required='N' />
+   <component name='ComponentNestedOne' required='Y' />
+   <component name='ComponentNestedTwo' required='N' />
+   <group name='NoGroupThree' required='N'>
+    <field name='Twenty' required='N' />
+    <field name='TwentyOne' required='Y' />
+    <group name='NoGroupNestedTwo' required='N'>
+     <field name='TwentyFour' required='N' />
+     <field name='TwentyFive' required='Y' />
+     <component name='ComponentNestedInGroup' required='Y' />
+   </group>
+   </group>
+  </component>
+  <component name='ComponentNestedOne'>
+   <field name='Thirteen' required='Y' />
+   <field name='Fourteen' required='N' />
+  </component>
+  <component name='ComponentNestedTwo'>
+   <field name='Fifteen' required='Y' />
+   <field name='Sixteen' required='N' />
+  </component>
+  <component name='ComponentNestedInGroup'>
+   <field name='TwentySix' required='Y' />
+   <field name='TwentySeven' required='N' />
+  </component>
+  <component name='PtysSubGrp'>
+   <group name='NoPartySubIDs' required='N'>
+    <field name='PartySubID' required='N' />
+    <field name='PartySubIDType' required='N' />
+   </group>
+  </component>
+ </components>
+ <fields>
+  <field number='1' name='One' type='INT' />
+  <field number='2' name='Two' type='FLOAT' />
+  <field number='3' name='Three' type='DATE' />
+  <field number='4' name='Four' type='TIME' />
+  <field number='5' name='Five' type='STRING' />
+  <field number='6' name='Six' type='BOOLEAN' />
+  <field number='7' name='Seven' type='TAGNUM' />
+  <field number='8' name='Eight' type='CHAR'>
+   <value enum='1' description='PER_UNIT' />
+   <value enum='2' description='PERCENT' />
+   <value enum='3' description='ABSOLUTE' />
+  </field>
+  <field number='69' name='SixyNine' type='CHAR' />
+  <field number='10' name='Ten' type='CHAR' />
+  <field number='11' name='Eleven' type='CHAR' />
+  <field number='12' name='Twelve' type='CHAR' />
+  <field number='13' name='Thirteen' type='CHAR' />
+  <field number='14' name='Fourteen' type='CHAR' />
+  <field number='15' name='Fifteen' type='CHAR' />
+  <field number='16' name='Sixteen' type='CHAR' />
+  <field number='17' name='Seventeen' type='CHAR' />
+  <field number='18' name='Eighteen' type='CHAR' />
+  <field number='19' name='Nineteen' type='CHAR' />
+  <field number='20' name='Twenty' type='CHAR' />
+  <field number='21' name='TwentyOne' type='CHAR' />
+  <field number='22' name='TwentyTwo' type='CHAR' />
+  <field number='23' name='TwentyThree' type='CHAR' />
+  <field number='24' name='TwentyFour' type='CHAR' />
+  <field number='25' name='TwentyFive' type='CHAR' />
+  <field number='26' name='TwentySix' type='CHAR' />
+  <field number='27' name='TwentySeven' type='CHAR' />
+  <field number='100' name='NoGroupOne' type='NUMINGROUP' />
+  <field number='101' name='NoGroupTwo' type='NUMINGROUP' />
+  <field number='102' name='NoGroupThree' type='NUMINGROUP' />
+  <field number='104' name='NoGroupNested' type='NUMINGROUP' />
+  <field number='105' name='NoGroupNestedTwo' type='NUMINGROUP' />
+  <field number='802' name='NoPartySubIDs' type='NUMINGROUP' />
+  <field number='523' name='PartySubID' type='STRING' />
+  <field number='803' name='PartySubIDType' type='INT'/>
+ </fields>
+</fix>

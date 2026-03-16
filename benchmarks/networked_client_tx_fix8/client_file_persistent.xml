@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fix8>
+    <default
+        active="true"
+        role="initiator"
+        sender_comp_id="CLIENT1"
+        target_comp_id="EXECUTOR"
+        default_appl_ver_id="7"
+        heartbeat_interval="60"
+        tcp_nodelay="true"
+        tcp_keepalive="false"
+        ip="192.168.10.100"
+        process_model="threaded"
+    />
+
+    <session
+        name="CLIENT"
+        active="true"
+        role="initiator"
+        sender_comp_id="CLIENT1"
+        target_comp_id="EXECUTOR"
+        default_appl_ver_id="7"
+        heartbeat_interval="60"
+        port="5001"
+        tcp_recv_buffer="212992"
+        tcp_send_buffer="212992"
+        persist="FILE"
+    />
+
+    <persist name="FILE" type="file" dir="stores" />
+</fix8>

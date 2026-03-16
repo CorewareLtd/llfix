@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+//////////////////////////////////////////////////////////////////////
+// ARCHITECTURE CHECK
+#if defined(_MSC_VER)
+#if (! defined(_M_X64))
+#error "This library is supported for only x86-x64 architectures"
+#endif
+#elif defined(__GNUC__)
+#if (! defined(__x86_64__)) && (! defined(__x86_64))
+#error "This library is supported for only x86-x64 architectures"
+#endif
+#endif

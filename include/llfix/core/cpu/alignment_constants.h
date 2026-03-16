@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <cstddef>
+
+namespace llfix
+{
+
+namespace AlignmentConstants
+{
+    // All constants are in bytes
+    constexpr std::size_t CPU_CACHE_LINE_SIZE = 64;
+    // SIMD REGISTER WIDTHS
+    constexpr std::size_t SIMD_SSE42_WIDTH = 16;
+    constexpr std::size_t SIMD_AVX_WIDTH = 32;
+    constexpr std::size_t SIMD_AVX2_WIDTH = 32;
+    constexpr std::size_t SIMD_AVX512_WIDTH = 64;
+    constexpr std::size_t SIMD_AVX10_WIDTH = 64;
+    constexpr std::size_t MINIMUM_VECTORISATION_WIDTH = SIMD_SSE42_WIDTH;
+    constexpr std::size_t LARGEST_VECTORISATION_WIDTH = SIMD_AVX10_WIDTH;
+}
+
+} // namespace

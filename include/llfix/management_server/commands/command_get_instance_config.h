@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,41 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+#include <string>
+#include "../command.h"
+#include "../management_context.h"
+
+namespace llfix
+{
+
+class CommandGetInstanceConfig : public Command
+{
+    public:
+        std::string process(ManagementContext& context) override
+        {
+            if (m_parameters.size() < 1)
+            {
+                return "Missing parameter(s)";
+            }
+
+            std::string ret;
+            ////////////////////////////////////////////////////////////////////////////
+            auto instance = context.get_instance(m_parameters[0]);
+
+            if (instance)
+            {
+                ret = instance->get_settings_as_string(",");
+            }
+            else
+            {
+                ret = "No results";
+            }
+
+            return ret;
+        }
+};
+
+} // namespace

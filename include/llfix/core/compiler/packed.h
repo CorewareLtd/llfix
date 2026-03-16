@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2026 Coreware Limited
@@ -19,3 +20,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#pragma once
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PACKED
+
+// Compilers may add additional padding zeroes for alignment
+// Though those additions may increase the size of your structs/classes
+// The ideal way is manually aligning data structures and minimising the memory footprint
+// Compilers won`t add additional padding zeroes for "packed" data structures
+
+#ifdef __GNUC__
+#define LLFIX_PACKED( __Declaration__ ) __Declaration__ __attribute__((__packed__))
+#elif _MSC_VER
+#define LLFIX_PACKED( __Declaration__ ) __pragma( pack(push, 1) ) __Declaration__ __pragma( pack(pop))
+#endif
