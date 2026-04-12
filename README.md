@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 
 ## **llfix**
 
@@ -12,7 +12,7 @@ The main features of the open-source edition:
 - Header-only with no mandatory dependencies (only optional dependency is LibNUMA)
 - FIX version agnostic, all versions supported
 - C++17
-- Linux (GCC & Clang) & Windows (MSVC)
+- Linux (GCC & Clang) & Windows (MSVC), x86 only
 - High determinism : No internal message queueing, no memory allocations on latency-critical paths & vDSO utilisation
 - Fast message serialisation via virtual memory
 - TCP administration interface, a command-line Python client provided
@@ -406,7 +406,11 @@ Instance names must be unique. For FIX servers, session names must begin with 'S
 <a name="version-history"></a>
 ## Version history
 
-- 1.0.0 : Initial version
+1.0.1 :
+- Fixed potential compiler reordering issue and switched to TTAS from TAS in UserspaceSpinlock
+- Additional error logging for llfix::MemoryMappedFile::flush failures
+
+1.0.0 : Initial version
 
 <a name="issues-and-questions"></a>
 ## Issues and Questions

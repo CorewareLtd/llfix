@@ -302,7 +302,7 @@ class Engine
         static const Version& get_version() { return m_version; }
         static uint64_t get_application_start_timestamp() { return m_application_start_timestamp; }
     private:
-        static inline Version m_version{"1.0.0"};
+        static inline Version m_version{"1.0.1"};
         static inline uint64_t m_application_start_timestamp = 0;
         static inline std::atomic<bool> m_engine_initialised = false;
 

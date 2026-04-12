@@ -264,12 +264,12 @@ public:
         buffer_size = static_cast<std::size_t>(m_size);
     }
 
-    void flush_to_disc()
+    bool flush_to_disc()
     {
         #ifdef __linux__
-        msync(m_buffer, m_size, MS_SYNC);
+        return msync(m_buffer, m_size, MS_SYNC) == 0;
         #elif _WIN32
-        FlushViewOfFile(m_buffer, m_size);
+        return FlushViewOfFile(m_buffer, m_size) != 0;
         #endif
     }
 

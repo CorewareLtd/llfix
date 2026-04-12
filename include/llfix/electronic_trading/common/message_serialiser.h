@@ -380,9 +380,13 @@ class MessageSerialiser
 
         bool switch_to_next_memory_mapped_file()
         {
+            if(m_current_memory_mapping.flush_to_disc() == false)
+            {
+                LLFIX_LOG_ERROR("Failed to flush message serialisation : " + m_serialisation_folder.get_serialised_file_path(m_current_serialised_file_number));
+            }
+
             m_current_serialised_file_number++;
 
-            m_current_memory_mapping.flush_to_disc();
             m_current_memory_mapping.close();
 
             auto file_path = m_serialisation_folder.get_serialised_file_path(m_current_serialised_file_number);

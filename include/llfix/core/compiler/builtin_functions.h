@@ -29,15 +29,6 @@ SOFTWARE.
 #endif
 
 //////////////////////////////////////////////////////////////////////
-// Compare and swap, standard C++ provides them however it requires non-POD std::atomic usage
-// They are needed when we want to embed spinlocks in "packed" data structures which need all members to be POD such as headers
-#if defined(__GNUC__)
-#define llfix_builtin_cas(pointer, old_value, new_value) __sync_val_compare_and_swap(pointer, old_value, new_value)
-#elif defined(_MSC_VER)
-#define llfix_builtin_cas(pointer, old_value, new_value) _InterlockedCompareExchange(reinterpret_cast<long*>(pointer), new_value, old_value)
-#endif
-
-//////////////////////////////////////////////////////////////////////
 // memcpy
 #if defined(__GNUC__)
 #define llfix_builtin_memcpy(destination, source, size)     __builtin_memcpy(destination, source, size)

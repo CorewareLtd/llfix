@@ -21,34 +21,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#pragma once
 
 /*
-    A CAS ( compare-and-swap ) based POD ( https://en.cppreference.com/w/cpp/language/classes#POD_class ) spinlock
-    As it is POD , it can be used inside packed declarations.
-
-    To keep it as POD :
-                1. Not using standard C++ std::atomic
-                2. Member variables should be public
-
-    Otherwise GCC will generate : warning: ignoring packed attribute because of unpacked non-POD field
-
-    PAHOLE OUTPUT :
-
-                size: 4, cachelines: 1, members: 1
-                last cacheline: 4 bytes
-
-    Can be faster than os/lock or std::mutex
-    However should be picked carefully as it will affect all processes on a CPU core
-    even though they are not doing the same computation so misuse may lead to starvation for others
-
-    Doesn`t check against uniprocessors.
+    TTAS : test-test-and-set ( https://en.wikipedia.org/wiki/Test_and_test-and-set ) to reduce cache-coherency traffic
 */
+#pragma once
+
 #include <cstddef>
 #include <cstdint>
+#include <atomic>
 
 #include "../compiler/hints_hot_code.h"
-#include "../compiler/builtin_functions.h"
 #include "../cpu/alignment_constants.h"
 #include "../cpu/pause.h"
 #include "../os/thread_utilities.h"
@@ -56,53 +39,46 @@ SOFTWARE.
 namespace llfix
 {
 
-template<std::size_t alignment=AlignmentConstants::CPU_CACHE_LINE_SIZE, std::size_t spin_count = 1024, std::size_t pause_count = 1, bool extra_system_friendly = false>
+template<std::size_t alignment=AlignmentConstants::CPU_CACHE_LINE_SIZE, std::size_t pause_count = 1, bool extra_system_friendly = false>
 struct UserspaceSpinlock
 {
-    // No privates, ctors or dtors to stay as PACKED+POD
-    LLFIX_ALIGN_DATA(alignment) uint32_t m_flag=0;
+    LLFIX_ALIGN_DATA(alignment) std::atomic<bool> m_flag{false}; // To avoid false sharing and misaligned accesses
 
     void initialise()
     {
-        m_flag = 0;
+        m_flag.store(false, std::memory_order_relaxed);
     }
 
     void lock()
     {
         while (true)
         {
-            for (std::size_t i(0); i < spin_count; i++)
+            if (!m_flag.exchange(true, std::memory_order_acquire))
             {
-                if (try_lock() == true)
-                {
-                    return;
-                }
-
-                pause(pause_count);
+                return;
             }
 
             if constexpr (extra_system_friendly)
             {
                 ThreadUtilities::yield();
             }
+
+            while (m_flag.load(std::memory_order_relaxed))
+            {
+                pause(pause_count);
+            }
         }
     }
 
     LLFIX_FORCE_INLINE bool try_lock()
     {
-        if (llfix_builtin_cas(&m_flag, 0, 1) == 1)
-        {
-            return false;
-        }
-
-        return true;
+        return !m_flag.load(std::memory_order_relaxed) && !m_flag.exchange(true, std::memory_order_acquire);
     }
 
     LLFIX_FORCE_INLINE void unlock()
     {
-        m_flag = 0;
+        m_flag.store(false, std::memory_order_release);
     }
 };
-
 
 } // namespace

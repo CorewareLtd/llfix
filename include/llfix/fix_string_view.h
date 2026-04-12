@@ -54,6 +54,11 @@ class FixStringView
             return m_length;
         }
 
+        std::size_t size() const
+        {
+            return m_length;
+        }
+
         char* data()
         {
             return m_buffer;
