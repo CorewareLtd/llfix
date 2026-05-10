@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![Version](https://img.shields.io/badge/version-1.0.2-blue)
 
 ## **llfix**
 
@@ -24,7 +24,6 @@ The main features of the open-source edition:
 * [Message serialisations & deserialiser tool](#serialisations--deserialiser-tool)
 * [Admin interface](#admin-interface)
 * [Configs](#configs)
-* [Version history](#version-history)
 * [Issues and Questions](#issues-and-questions)
 * [References](#references)
 
@@ -402,15 +401,6 @@ Instance names must be unique. For FIX servers, session names must begin with 'S
 | start_minute_utc                                 | UTC minute when the session becomes active. (-1 disables scheduling)                                                       | -1      |
 | end_hour_utc                                     | UTC hour when the session stops being active. (-1 disables scheduling)                                                     | -1      |
 | end_minute_utc                                   | UTC minute when the session stops being active (-1 disables scheduling)                                                    | -1      |
-
-<a name="version-history"></a>
-## Version history
-
-1.0.1 :
-- Fixed potential compiler reordering issue and switched to TTAS from TAS in UserspaceSpinlock
-- Additional error logging for llfix::MemoryMappedFile::flush failures
-
-1.0.0 : Initial version
 
 <a name="issues-and-questions"></a>
 ## Issues and Questions

@@ -25,6 +25,7 @@ SOFTWARE.
 
 #include <cstdint>
 #include <cstddef>
+#include <iterator>
 #include <type_traits>
 #include <string>
 #include <string_view>
@@ -414,7 +415,65 @@ class IncomingFixMessage
             return &m_dict;
         }
 
+        //////////////////////////////////////////////////////////////////////////////
+        // OTHERS
         uint64_t get_generation_id() const { return m_generation_id; }
+
+        class const_iterator
+        {
+            public:
+
+                const_iterator(Dictionary<uint32_t, IncomingValue>::iterator current, Dictionary<uint32_t, IncomingValue>::iterator end, uint64_t generation_id)
+                    : m_current(current), m_end(end), m_generation_id(generation_id)
+                {
+                    skip_stale_entries();
+                }
+
+                const Dictionary<uint32_t, IncomingValue>::DictionaryNode& operator*() const
+                {
+                    return *m_current;
+                }
+
+                const_iterator& operator++()
+                {
+                    ++m_current;
+                    skip_stale_entries();
+                    return *this;
+                }
+
+                friend bool operator==(const const_iterator& a, const const_iterator& b)
+                {
+                    return a.m_current == b.m_current;
+                }
+
+                friend bool operator!=(const const_iterator& a, const const_iterator& b)
+                {
+                    return a.m_current != b.m_current;
+                }
+
+            private:
+                void skip_stale_entries()
+                {
+                    while (m_current != m_end && m_current->value.generation_id != m_generation_id)
+                    {
+                        ++m_current;
+                    }
+                }
+
+                Dictionary<uint32_t, IncomingValue>::iterator m_current;
+                Dictionary<uint32_t, IncomingValue>::iterator m_end;
+                uint64_t m_generation_id = 0;
+        };
+
+        const_iterator begin() const
+        {
+            return const_iterator(m_dict.begin(), m_dict.end(), m_generation_id);
+        }
+
+        const_iterator end() const
+        {
+            return const_iterator(m_dict.end(), m_dict.end(), m_generation_id);
+        }
 
     private:
         uint64_t m_generation_id = 1;

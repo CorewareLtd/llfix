@@ -72,6 +72,8 @@ int main(int argc, char* argv[])
     auto heartbeat_interval_seconds = config.get_int_value("heartbeat_interval_seconds", 100);
     auto primary_address = config.get_string_value("primary_address", "127.0.0.1");
     auto primary_port = config.get_int_value("primary_port", 5001);
+    auto secondary_address = config.get_string_value("secondary_address", "");
+    auto secondary_port = config.get_int_value("secondary_port", 0);
     auto nic_address = config.get_string_value("nic_address", "");
     auto nic_name = config.get_string_value("nic_name", "");
     auto serialised_file_max_size = config.get_int_value("serialised_file_max_size", 67108864);
@@ -99,6 +101,10 @@ int main(int argc, char* argv[])
         llfix::FixClientSettings fix_client_settings;
         fix_client_settings.primary_address = primary_address;
         fix_client_settings.primary_port = primary_port;
+
+        fix_client_settings.secondary_address = secondary_address;
+        fix_client_settings.secondary_port = secondary_port;
+
         fix_client_settings.nic_address = nic_address;
         fix_client_settings.nic_name = nic_name;
 

@@ -708,6 +708,54 @@ int main(int argc, char* argv[])
     }
 
     //////////////////////////////////////////////////////////
+    // INCOMING - const range based for loop
+    {
+        IncomingFixMessage msg;
+
+        if (msg.initialise() == false)
+        {
+            std::cout << "IncomingFixMessage failed\n";
+            return -1;
+        }
+
+        msg.set_tag(333, get_fix_string_view("dirty"));
+        msg.reset();
+        msg.set_tag(35, get_fix_string_view("D"));
+        msg.set_tag(444, get_fix_string_view("clean"));
+
+        const IncomingFixMessage& const_msg = msg;
+        std::size_t tag_count = 0;
+        bool found_msg_type = false;
+        bool found_clean_tag = false;
+        bool found_dirty_tag = false;
+
+        for (const auto& item : const_msg)
+        {
+            ++tag_count;
+
+            if (item.key == 35 && item.value.value->to_string() == "D")
+            {
+                found_msg_type = true;
+            }
+
+            if (item.key == 444 && item.value.value->to_string() == "clean")
+            {
+                found_clean_tag = true;
+            }
+
+            if (item.key == 333)
+            {
+                found_dirty_tag = true;
+            }
+        }
+
+        unit_test.test_equals(tag_count, static_cast<std::size_t>(2), "incoming fix message const range loop", "should iterate only live tags");
+        unit_test.test_equals(found_msg_type, true, "incoming fix message const range loop", "msg type tag should be iterated");
+        unit_test.test_equals(found_clean_tag, true, "incoming fix message const range loop", "clean tag should be iterated");
+        unit_test.test_equals(found_dirty_tag, false, "incoming fix message const range loop", "dirty tag should not be iterated");
+    }
+
+    //////////////////////////////////////////////////////////
     // TIMESTAMP PRECISIONS
     {
         llfix::FixString str;

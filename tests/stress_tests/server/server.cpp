@@ -11,7 +11,6 @@
 #include "test_server.h"
 
 #include <llfix/core/utilities/configuration.h>
-#include <llfix/core/utilities/filesystem_utilities.h>
 #include <llfix/core/utilities/std_string_utilities.h>
 #include <llfix/core/os/console.h>
 
@@ -23,9 +22,6 @@ static std::string CONFIG_FILE = "config.cfg";
 
 int main()
 {
-    llfix::FileSystemUtilities::delete_directory_if_exists("clients");
-    llfix::FileSystemUtilities::delete_file_if_exists("log.txt");
-
     llfix::Engine::on_start(CONFIG_FILE);
 
     TestServer server;
