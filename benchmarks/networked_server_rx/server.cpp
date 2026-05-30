@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     }
     #endif
 
-    llfix::FileSystemUtilities::delete_directory_if_exists("clients_incoming");
+    llfix::FileSystemUtilities::delete_directory_if_exists("messages");
     llfix::FileSystemUtilities::delete_directory_if_exists("clients_outgoing");
     llfix::FileSystemUtilities::delete_directory_if_exists("clients_seq_stores");
     llfix::FileSystemUtilities::delete_file_if_exists("log.txt");
@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
 
         session_settings.max_serialised_file_size = serialised_file_max_size;
         session_settings.sequence_store_file_path = "clients_seq_stores/client" + std::to_string(i + 1) + "/sequence.store";               // clients/client1/sequence.store
-        session_settings.incoming_message_serialisation_path = "clients_incoming/client" + std::to_string(i + 1) + "/messages_incoming"; // clients/client1/messages_incoming
+        session_settings.incoming_message_serialisation_path = "messages/client" + std::to_string(i + 1) + "/messages_incoming"; // clients/client1/messages_incoming
         session_settings.outgoing_message_serialisation_path = "clients_outgoing/client" + std::to_string(i + 1) + "/messages_outgoing"; // clients/client1/messages_outgoing
 
         session_settings.initialise_derived_settings();

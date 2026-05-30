@@ -222,7 +222,6 @@ class FixUtilities
 
             index = static_cast<int>(static_cast<char*>(p) - buffer);
             #elif _WIN32
-            LLFIX_ALIGN_CODE_32;
             while (true)
             {
                 if (buffer[index] == FixConstants::FIX_DELIMITER)
@@ -251,7 +250,6 @@ class FixUtilities
             if (index > max_index)
                 index = max_index;
 
-            LLFIX_ALIGN_CODE_32;
             while (true)
             {
                 if (buffer[index] == '1' && buffer[index + 1] == '0' && buffer[index + 2] == FixConstants::FIX_EQUALS)
@@ -259,7 +257,6 @@ class FixUtilities
                     // FIND OUT TAG10
                     int temp_index = index + 2;
 
-                    LLFIX_ALIGN_CODE_32;
                     while (true)
                     {
                         if (temp_index == static_cast<int>(buffer_size))
@@ -291,7 +288,6 @@ class FixUtilities
         {
             std::size_t current_index = 0;
 
-            LLFIX_ALIGN_CODE_32;
             while (current_index<buffer_size-1)
             {
                 if(buffer[current_index] == '8' && buffer[current_index+1] == FixConstants::FIX_EQUALS)

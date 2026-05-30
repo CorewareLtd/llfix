@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/badge/version-1.0.2-blue)
+![Version](https://img.shields.io/badge/version-1.0.3-blue)
 
 ## **llfix**
 
@@ -15,14 +15,14 @@ The main features of the open-source edition:
 - Linux (GCC & Clang) & Windows (MSVC), x86 only
 - High determinism : No internal message queueing, no memory allocations on latency-critical paths & vDSO utilisation
 - Fast message serialisation via virtual memory
-- TCP administration interface, a command-line Python client provided
+- TCP administration interface & programmatic administration using Python
 
 * [Benchmarks](#benchmarks)
 * [Benchmarks against FIX8 and QuickFix](#benchmarks-engines)
 * [Examples](#examples)
 * [Documentation](#documentation)
 * [Message serialisations & deserialiser tool](#serialisations--deserialiser-tool)
-* [Admin interface](#admin-interface)
+* [Administration](#administration)
 * [Configs](#configs)
 * [Issues and Questions](#issues-and-questions)
 * [References](#references)
@@ -187,8 +187,8 @@ BeginString=FIX.4.4|BodyLength=188|MsgType=D|MsgSeqNum=2|SenderCompID=CLIENT3|Se
 ...
 ```
 
-<a name="admin-interface"></a>
-## Admin interface
+<a name="admininstration"></a>
+## Administration
 
 llfix engine provides a builtin TCP based management interface. You can find "admin_client.py" under tools directory. The following animation shows the admin CLI interacting with a running llfix engine :
 
@@ -218,6 +218,8 @@ The table below lists the available admin interface commands and their descripti
 | set_incoming_sequence_number <c/s> <session> <no> | Set incoming sequence number                            |
 | set_outgoing_sequence_number <c/s> <session> <no> | Set outgoing sequence number                            |
 | send_sequence_reset <c/s> <session> <no>          | Send FIX sequence reset                                 |
+
+You can also programatically send admin commands to manage your sessions using Python. You can find 'programmatic_administration' under examples directory.
 
 <a name="configs"></a>
 ## Configs

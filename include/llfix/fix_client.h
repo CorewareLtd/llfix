@@ -1260,7 +1260,6 @@ class FixClient : public Transport, public ManagedInstance
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // AT THIS POINT WE HAVE AT LEAST ONE COMPLETE MESSAGE
-            LLFIX_ALIGN_CODE_32;
             while (true)
             {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1306,7 +1305,6 @@ class FixClient : public Transport, public ManagedInstance
                 int binary_field_counter = 0;
                 #endif
 
-                LLFIX_ALIGN_CODE_32;
                 while (true)
                 {
                     char current_char = buffer[current_index];

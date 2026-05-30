@@ -374,28 +374,24 @@ class OutgoingFixMessage
                 body_length += static_cast<int>(5+ last_processed_seq_num_str_len); // 5 -> 369= and delimiter
             }
 
-            LLFIX_ALIGN_CODE_32;
             for(std::size_t i =0; i < m_header_pointer; i++)
             {
                 m_header_vector[i].tag_str_length = Converters::unsigned_int_to_chars<uint32_t>(m_header_vector[i].tag, &(m_header_vector[i].tag_str[0]));
                 body_length += static_cast<int>((2 + m_header_vector[i].tag_str_length + m_header_vector[i].value->length())); // 2 is delimiter and equals sign
             }
 
-            LLFIX_ALIGN_CODE_32;
             for(std::size_t i =0; i < m_body_pointer; i++)
             {
                 m_body_vector[i].tag_str_length = Converters::unsigned_int_to_chars<uint32_t>(m_body_vector[i].tag, &(m_body_vector[i].tag_str[0]));
                 body_length += static_cast<int>((2 + m_body_vector[i].tag_str_length + m_body_vector[i].value->length())); // 2 is delimiter and equals sign
             }
 
-            LLFIX_ALIGN_CODE_32;
             for(std::size_t i =0; i < m_trailer_pointer; i++)
             {
                 m_trailer_vector[i].tag_str_length = Converters::unsigned_int_to_chars<uint32_t>(m_trailer_vector[i].tag, &(m_trailer_vector[i].tag_str[0]));
                 body_length += static_cast<int>((2 + m_trailer_vector[i].tag_str_length + m_trailer_vector[i].value->length())); // 2 is delimiter and equals sign
             }
 
-            LLFIX_ALIGN_CODE_32;
             for(const auto & additional_header_tag : m_additional_static_header_tags)
             {
                 body_length += static_cast<int>((2 + additional_header_tag.tag_str_length + additional_header_tag.value.length())); // 2 is delimiter and equals sign
@@ -458,7 +454,6 @@ class OutgoingFixMessage
             }
 
             // ADDITIONAL STATIC HEADER TAGS
-            LLFIX_ALIGN_CODE_32;
             for(const auto & additional_header_tag : m_additional_static_header_tags)
             {
                 write_to_buffer(&additional_header_tag.tag_str[0], additional_header_tag.tag_str_length);
@@ -471,7 +466,6 @@ class OutgoingFixMessage
             }
 
             // HEADER TAGS
-            LLFIX_ALIGN_CODE_32;
             for(std::size_t i=0; i<m_header_pointer;i++)
             {
                 write_to_buffer(&m_header_vector[i].tag_str[0], m_header_vector[i].tag_str_length);
@@ -484,7 +478,6 @@ class OutgoingFixMessage
             }
 
             // BODY TAGS
-            LLFIX_ALIGN_CODE_32;
             for(std::size_t i=0; i<m_body_pointer;i++)
             {
                 write_to_buffer(&m_body_vector[i].tag_str[0], m_body_vector[i].tag_str_length);
@@ -497,7 +490,6 @@ class OutgoingFixMessage
             }
 
             // TRAILER TAGS
-            LLFIX_ALIGN_CODE_32;
             for(std::size_t i=0; i<m_trailer_pointer;i++)
             {
                 write_to_buffer(&m_trailer_vector[i].tag_str[0], m_trailer_vector[i].tag_str_length);

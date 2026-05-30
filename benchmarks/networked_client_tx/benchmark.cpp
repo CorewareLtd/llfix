@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     }
     #endif
 
-    llfix::FileSystemUtilities::delete_directory_if_exists("messages_outgoing");
+    llfix::FileSystemUtilities::delete_directory_if_exists("messages");
     llfix::FileSystemUtilities::delete_directory_if_exists("messages_incoming");
     llfix::FileSystemUtilities::delete_file_if_exists("sequence.store");
 
