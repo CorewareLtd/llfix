@@ -62,7 +62,7 @@ Message :
 | P95                                   | 1588 nanoseconds                                                |
 | P99                                   | 2663 nanoseconds                                                |
 
-Singlethreaded FIXServer benchmark: 4.7 million messages in total from 32 clients, handled by one thread & on loopback, includes message serialisation & validations ([benchmarks/networked_server_rx](benchmarks/networked_server_rx)):
+Singlethreaded FIXServer benchmark: 4.7 million messages in total from 32 clients, handled by one thread & on loopback, includes message serialisation & validations & sending execution reports ([benchmarks/networked_server_rx](benchmarks/networked_server_rx)):
 
 Message :
 8=FIXT.1.1|9=188|35=D|34=2|
