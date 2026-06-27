@@ -38,7 +38,7 @@ struct FixServerSettings
 {
     ////////////////////////////////////////////////////////////
     // THREADS
-    int cpu_core_id = -1;
+    int cpu_core_id = -1;                          // Applies to TcpReactor
     int worker_thread_count = 0;                   // Applies to TcpReactorScalable
     ////////////////////////////////////////////////////////////
     // SENDS

@@ -2,6 +2,12 @@
 #include <llfix/core/os/console.h>
 #include <llfix/core/utilities/std_string_utilities.h>
 
+#include <llfix/fix_server.h>
+#include <llfix/core/utilities/tcp_reactor.h>
+
+#include <llfix/fix_client.h>
+#include <llfix/core/utilities/tcp_connector.h>
+
 #include "order_router.h"
 
 #include <string>
@@ -12,14 +18,14 @@ int main()
 {
     llfix::Engine::on_start("configs/engine.cfg");
 
-    OrderRouter router;
+    OrderRouter< llfix::FixServer<llfix::TcpReactor<>>, llfix::FixClient<llfix::TCPConnector>> router;
 
-    router.init_acceptor("configs/inbound.cfg", "ROUTER_ACCEPTOR");
+    if (!router.initialise("configs/routing.cfg", "configs/inbound.cfg"))
+    {
+        return -1;
+    }
+
     router.specify_repeating_group("D", 453, 448, 447, 452); // This is not needed when you use dictionaries
-
-    // This is where we specify the mapping between the inbound sessions and the outbound sessions.
-    router.add_mapping("SESSION_INBOUND1", "SESSION_OUTBOUND1");
-    router.add_mapping("SESSION_INBOUND2", "SESSION_OUTBOUND2");
 
     // Inbound sessions
     router.add_inbound_session("configs/inbound.cfg", "SESSION_INBOUND1");

@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/badge/version-1.0.3-blue)
+![Version](https://img.shields.io/badge/version-1.0.4-blue)
 
 ## **llfix**
 
@@ -123,7 +123,7 @@ mkdir build
 cd build
 cmake ..
 make
-sudo ./example
+./example
 # And same for fix_trade_client
 ```
 

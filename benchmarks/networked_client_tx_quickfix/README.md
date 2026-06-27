@@ -15,7 +15,7 @@ To prepare this folder, please refer to the README.md file in that directory.
 ```bash
 cd ../networked_client_tx/server
 make server
-sudo ./server
+./server
 ```
 
 2. Build and run the benchmark in this directory :
@@ -23,12 +23,12 @@ sudo ./server
 ```bash
 make release
 sudo chmod +x *.sh
-sudo ./run.sh
+./run.sh
 ```
 
 If you have a Solarflare NIC and if Onload is available :
 
 ```bash
-sudo ./run_with_onload.sh
+./run_with_onload.sh
 ```
 Note : Everytime you repeat the benchmark, press R to reset sequence numbers on the server app.

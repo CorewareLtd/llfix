@@ -7,6 +7,7 @@
 #include <llfix/core/os/console.h>
 #include <llfix/core/utilities/configuration.h>
 #include <llfix/core/utilities/filesystem_utilities.h>
+#include <llfix/core/utilities/std_string_utilities.h>
 
 #include "serialisation_path_reader.h"
 #include "otlp_client.h"
@@ -88,7 +89,7 @@ int main(int argc, char**argv)
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // OTLP CLIENT
-    OTLPClient otlp_client(otlp_application_name, otlp_endpoint);
+    OTLPClient otlp_client(otlp_application_name, otlp_endpoint, "", "");
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // APPLICATION THREAD
@@ -110,7 +111,8 @@ int main(int argc, char**argv)
 
                 if (incoming_latest_message_index > incoming_latest_post_message_index || outgoing_latest_message_index > outgoing_latest_post_message_index)
                 {
-                    otlp_client.post(incoming_session_name, incoming_latest_message_index, outgoing_session_name, outgoing_latest_message_index);
+                    otlp_client.post_stats_metric("incoming_session", incoming_latest_message_index, "messages");
+                    otlp_client.post_stats_metric("outgoing_session", outgoing_latest_message_index, "messages");
                     // std::cout << "Incoming session index:" << incoming_latest_message_index << ", Outgoing session index: " << outgoing_latest_message_index << "\n";
 
                     incoming_latest_post_message_index = incoming_latest_message_index;

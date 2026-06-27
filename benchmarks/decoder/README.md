@@ -9,5 +9,5 @@ make release
 2. Run the benchmark
 
 ```bash
-sudo ./benchmark
+./benchmark
 ```

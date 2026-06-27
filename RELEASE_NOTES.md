@@ -1,5 +1,11 @@
 ## RELEASE NOTES
 
+1.0.4 : 27 June 2026
+
+- Root privilege requirement narrowed in scope: now required only when lock_pages is enabled
+- TcpReactorScalable now emits a warning to stderr when the host has only one physical core
+- FixServer::does_any_session_use_path no longer checks serialisation paths when message serialisation is disabled
+
 1.0.3 : 30 May 2026
 
 - Added new examples 'programmatic_administration' & 'docker'
@@ -9,7 +15,7 @@
 
 1.0.2 : 10 May 2026
 
-- Added new examples 'order_router' and 'otlp_prometheus'
+- Added new examples 'order_router' and 'otlp'
 - Correcting high availability example's configuration
 - Added const_iterator for llfix::IncomingFixMessage
 

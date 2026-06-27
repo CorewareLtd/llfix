@@ -1199,16 +1199,17 @@ class FixServer : public Transport, public ManagedInstance
                     return true;
                 }
 
-                if (session_entry.second->settings()->incoming_message_serialisation_path == path)
+                if (session_entry.second->settings()->incoming_message_serialisation_path == path && session_entry.second->serialisation_enabled() == true)
                 {
                     return true;
                 }
 
-                if (session_entry.second->settings()->outgoing_message_serialisation_path == path)
+                if (session_entry.second->settings()->outgoing_message_serialisation_path == path && session_entry.second->serialisation_enabled() == true)
                 {
                     return true;
                 }
             }
+
             return false;
         }
 

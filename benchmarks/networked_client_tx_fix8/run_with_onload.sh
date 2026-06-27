@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo rm -rf logs stores global_filename*
+rm -rf logs stores global_filename*
 mkdir -p logs
 mkdir -p stores
-sudo -E LD_LIBRARY_PATH=/usr/local/lib/ onload --profile=../onload_profile.cfg ./benchmark
+LD_LIBRARY_PATH=/usr/local/lib/ onload --profile=../onload_profile.cfg ./benchmark

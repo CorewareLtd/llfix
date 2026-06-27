@@ -5,10 +5,11 @@ project(example_order_router LANGUAGES CXX)
 
 include("../../llfix.cmake")
 
-add_executable(example_order_router example.cpp order_router.cpp)
+add_executable(example_order_router example.cpp )
 
 configure_llfix(example_order_router)
 
+configure_file(configs/routing.cfg configs/routing.cfg COPYONLY)
 configure_file(configs/engine.cfg configs/engine.cfg COPYONLY)
 configure_file(configs/inbound.cfg configs/inbound.cfg COPYONLY)
 configure_file(configs/outbound.cfg configs/outbound.cfg COPYONLY)

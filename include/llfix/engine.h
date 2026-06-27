@@ -88,14 +88,6 @@ class Engine
                 return;
             }
 
-            #ifdef __linux__
-            if(ProcessUtilities::has_root_privileges() == false)
-            {
-                fprintf(stderr, "llfix engine : Requires root privileges on Linux.\n");
-                std::exit(-1);
-            }
-            #endif
-
             m_application_start_timestamp = VDSO::nanoseconds_monotonic();
 
             EngineSettings engine_settings;
@@ -153,6 +145,11 @@ class Engine
             if(engine_settings.lock_pages)
             {
                 #ifdef __linux__
+                if (ProcessUtilities::has_root_privileges() == false)
+                {
+                    fprintf(stderr, "llfix engine : lock_pages option requires root privileges on Linux.\n");
+                    std::exit(-1);
+                }
                 auto page_lock_success = VirtualMemory::lock_all_pages();
                 LLFIX_LOG_INFO("VM pages locked : " + std::string( (page_lock_success?"1":"0") ));
                 #endif
@@ -302,7 +299,7 @@ class Engine
         static const Version& get_version() { return m_version; }
         static uint64_t get_application_start_timestamp() { return m_application_start_timestamp; }
     private:
-        static inline Version m_version{"1.0.3"};
+        static inline Version m_version{"1.0.4"};
         static inline uint64_t m_application_start_timestamp = 0;
         static inline std::atomic<bool> m_engine_initialised = false;
 

@@ -55,6 +55,16 @@ int main()
         return -1;
     }
 
+    auto dictionary_path = config.get_string_value("dictionary_path");
+
+    #ifdef LLFIX_ENABLE_DICTIONARY
+    if (dictionary_path.empty())
+    {
+        std::cout << "You must specify dictionary_path" << std::endl;
+        return -1;
+    }
+    #endif
+
     auto serialised_file_max_size = config.get_int_value("serialised_file_max_size", 67108864);
 
     for (int i = 0; i < client_count; i++)
@@ -82,7 +92,7 @@ int main()
         session_settings.initialise_derived_settings();
 
         #ifdef LLFIX_ENABLE_DICTIONARY
-        session_settings.application_dictionary_path="../../dictionaries/FIX44.xml";
+        session_settings.application_dictionary_path = dictionary_path;
         #endif
 
         #ifdef ENABLE_MESSAGE_REPLAY
@@ -100,7 +110,11 @@ int main()
     server.init_stats_per_session();
     server.specify_repeating_group("D", 453, 448, 447, 452);
 
-    server.start();
+    if(server.start() == false)
+    {
+        std::cout << "Failed to start server\n";
+        return -1;
+    }
 
     std::string user_input;
 

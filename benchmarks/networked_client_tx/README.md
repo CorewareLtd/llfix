@@ -10,7 +10,7 @@ As for target and local (NIC to bind) IP addresses and local NIC name, update co
 ```bash
 cd server
 make server
-sudo ./server
+./server
 ```
 
 2. Build the benchmark
@@ -25,12 +25,12 @@ Note: To enable Solarflare TCPDirect, you will need to enable #define LLFIX_ENAB
 3. Run the benchmark
 
 ```bash
-sudo ./benchmark
+./benchmark
 ```
 
 If you have a Solarflare NIC and if Onload is available :
 
 ```bash
-sudo onload --profile=../onload_profile.cfg ./benchmark
+onload --profile=../onload_profile.cfg ./benchmark
 ```
 Note : Everytime you repeat the benchmark, press R to reset sequence numbers on the server app.

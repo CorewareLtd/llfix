@@ -17,7 +17,7 @@ sudo chmod +x *.sh *.py deserialiser
 
 ```bash
 make release
-sudo ./server
+./server
 ```
 
 Note1: To enable FIX dictionary validations, enable #define LLFIX_ENABLE_DICTIONARY line in server.cpp or pass -DLLFIX_ENABLE_DICTIONARY=ON to CMake.
@@ -35,7 +35,7 @@ make release
 4. Run the clients app
 
 ```bash
-sudo ./clients
+./clients
 ```
 
 5. When in the clients app, send orders. Example: Since there are 8 clients, if you send 150K orders that will be 1 million 35=D messages in total.
@@ -44,7 +44,7 @@ sudo ./clients
 6. After all orders sent, you can quit from the server and run the py script to calculate throughput:
 
 ```bash
-sudo python ./calculate_throughput.py
+python ./calculate_throughput.py
 ```
 
 Note: When you want to repeat the test, you can invoke clean.sh in both server directory and clients directory.
