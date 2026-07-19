@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dialect xmlns="https://ref.onixs.biz/fix/dialects"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://ref.onixs.biz/fix/dialects https://ref.onixs.biz/fix/dialects/dialects-2.18.xsd">
+
+  <FIX version="4.0" mode="override"/>
+
+  <FIX version="4.1" mode="override"/>
+
+  <FIX version="4.2" mode="override"/>
+
+  <FIX version="4.3" mode="override"/>
+  
+  <FIX version="4.4" mode="override"/>
+
+  <FIX version="5.0" mode="override"/>
+
+  <FIX version="5.0_SP1" mode="override"/>
+
+  <FIX version="5.0_SP2" mode="override"/>
+
+  <FIX version="5.0_SP2" id="LowLatencyDictionaryId" mode="override" revision="1.0.0.0">
+      <Message type="D" mode="override">
+        <Field tag="11" name="ClOrdID"/>
+        <Field tag="55" name="Symbol"/>
+        <Field tag="54" name="Side"/>
+        <Field tag="38" name="OrderQty"/>
+        <Field tag="40" name="OrdType"/>
+        <Field tag="60" name="TransactTime"/>
+        <Group numberOfInstancesTag="453" name="NoPartyIDs">
+            <Field tag="448" name="PartyID"/>
+            <Field tag="447" name="PartyIDSource"/>
+            <Field tag="452" name="PartyRole"/>
+        </Group>
+      </Message>
+
+      <Message type="8" mode="override">
+          <Field tag="11" name="ClOrdID"/>
+          <Field tag="38" name="OrderQty"/>
+      </Message>
+
+  </FIX>
+</Dialect>

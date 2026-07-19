@@ -1,5 +1,9 @@
 ## RELEASE NOTES
 
+1.0.5 : 19 July 2026
+
+- Added OnixS engine FIX client benchmark
+
 1.0.4 : 27 June 2026
 
 - Root privilege requirement narrowed in scope: now required only when lock_pages is enabled

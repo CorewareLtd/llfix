@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Version](https://img.shields.io/badge/version-1.0.4-blue)
+![Version](https://img.shields.io/badge/version-1.0.5-blue)
 
 ## **llfix**
 
@@ -18,7 +18,7 @@ The main features of the open-source edition:
 - TCP administration interface & programmatic administration using Python
 
 * [Benchmarks](#benchmarks)
-* [Benchmarks against FIX8 and QuickFix](#benchmarks-engines)
+* [Benchmarks against FIX8 & QuickFix & OnixS](#benchmarks-engines)
 * [Examples](#examples)
 * [Documentation](#documentation)
 * [Message serialisations & deserialiser tool](#serialisations--deserialiser-tool)
@@ -81,34 +81,34 @@ Message :
 | Latency per message   | 4.49 microseconds          |
 
 <a name="benchmarks-engines"></a>
-## Benchmarks against FIX8 and QuickFix
+## Benchmarks against FIX8 & QuickFix & OnixS
 
-All cross-engine benchmarks were executed on the same hardware and operating system environment and all three engines (llfix, FIX8, and QuickFIX) were built with -O3 flag.
+All cross-engine benchmarks were executed on the same hardware and operating system environment and all four engines (llfix, FIX8, QuickFIX and OnixS) were built with -O3 flag.
 
-The previously introduced FIXClient TX/send latency benchmark ([benchmarks/networked_client_tx](benchmarks/networked_client_tx)) was re-implemented for FIX8 ([benchmarks/networked_client_tx_fix8](benchmarks/networked_client_tx_fix8)) and Quickfix ([benchmarks/networked_client_tx_quickfix](benchmarks/networked_client_tx_quickfix)).
+The previously introduced FIXClient TX/send latency benchmark ([benchmarks/networked_client_tx](benchmarks/networked_client_tx)) was re-implemented for FIX8 ([benchmarks/networked_client_tx_fix8](benchmarks/networked_client_tx_fix8)) and Quickfix ([benchmarks/networked_client_tx_quickfix](benchmarks/networked_client_tx_quickfix)) and OnixS ([benchmarks/networked_client_tx_onixs](benchmarks/networked_client_tx_onixs)).
 
 The full benchmark source code for all three engines can be found in the `benchmarks` directory. Each benchmark subdirectory contains a `README.md` file describing the reproduction steps.
 
 The combined results for benchmarks run with Onload are shown below :
 
-- Table 1 compares llfix, Fix8, and QuickFIX with file persistence.
-- Table 2 compares llfix with file persistence against Fix8 and QuickFIX with memory persistence.
+- Table 1 compares llfix, Fix8, QuickFIX and OnixS with file persistence.
+- Table 2 compares llfix with file persistence against Fix8, QuickFIX and OnixS with memory persistence.
 
-| Percentile | llfix opensource-edition 1.0.0 (with file persistence) | FIX8 1.0.4 (with file persistence) | Quickfix 17 latency (with file persistence) |
-| ---------- | -------------------------------------------------------|------------------------------------|-------------------------------------------- |
-| P50        | 573 nanoseconds                                        | 4189 nanoseconds                   | 13156 nanoseconds                           |
-| P75        | 798 nanoseconds                                        | 4511 nanoseconds                   | 13520 nanoseconds                           |
-| P90        | 1044 nanoseconds                                       | 4986 nanoseconds                   | 14703 nanoseconds                           |
-| P95        | 1588 nanoseconds                                       | 5743 nanoseconds                   | 15334 nanoseconds                           |
-| P99        | 2663 nanoseconds                                       | 12807 nanoseconds                  | 18595 nanoseconds                           |
+| Percentile | llfix opensource-edition 1.0.0 (with file persistence) | FIX8 1.0.4 (with file persistence) | Quickfix 17 latency (with file persistence) | OnixS 4.13.0 latency (with file persistence) |
+| ---------- | -------------------------------------------------------|------------------------------------|-------------------------------------------- |--------------------------------------------- |
+| P50        | 573 nanoseconds                                        | 4189 nanoseconds                   | 13156 nanoseconds                           | 4230 nanoseconds                             |
+| P75        | 798 nanoseconds                                        | 4511 nanoseconds                   | 13520 nanoseconds                           | 5143 nanoseconds                             |
+| P90        | 1044 nanoseconds                                       | 4986 nanoseconds                   | 14703 nanoseconds                           | 5630 nanoseconds                             |
+| P95        | 1588 nanoseconds                                       | 5743 nanoseconds                   | 15334 nanoseconds                           | 6370 nanoseconds                             |
+| P99        | 2663 nanoseconds                                       | 12807 nanoseconds                  | 18595 nanoseconds                           | 8678 nanoseconds                             |
 
-| Percentile | llfix opensource-edition 1.0.0 (with file persistence) | FIX8 1.0.4 (with memory persistence) | Quickfix 17 latency (with memory persistence)|
-| ---------- | -------------------------------------------------------|--------------------------------------|--------------------------------------------- |
-| P50        | 573 nanoseconds                                        | 1806 nanoseconds                     | 7341 nanoseconds                             |
-| P75        | 798 nanoseconds                                        | 2162 nanoseconds                     | 7571 nanoseconds                             |
-| P90        | 1044 nanoseconds                                       | 3573 nanoseconds                     | 7809 nanoseconds                             |
-| P95        | 1588 nanoseconds                                       | 5272 nanoseconds                     | 7893 nanoseconds                             |
-| P99        | 2663 nanoseconds                                       | 7416 nanoseconds                     | 9323 nanoseconds                             |
+| Percentile | llfix opensource-edition 1.0.0 (with file persistence) | FIX8 1.0.4 (with memory persistence) | Quickfix 17 latency (with memory persistence)| OnixS 4.13.0 latency (with memory persistence) |
+| ---------- | -------------------------------------------------------|--------------------------------------|--------------------------------------------- |----------------------------------------------- |
+| P50        | 573 nanoseconds                                        | 1806 nanoseconds                     | 7341 nanoseconds                             |1214 nanoseconds                                |
+| P75        | 798 nanoseconds                                        | 2162 nanoseconds                     | 7571 nanoseconds                             |1346 nanoseconds                                |
+| P90        | 1044 nanoseconds                                       | 3573 nanoseconds                     | 7809 nanoseconds                             |2582 nanoseconds                                |
+| P95        | 1588 nanoseconds                                       | 5272 nanoseconds                     | 7893 nanoseconds                             |2671 nanoseconds                                |
+| P99        | 2663 nanoseconds                                       | 7416 nanoseconds                     | 9323 nanoseconds                             |3526 nanoseconds                                |
 
 <a name="examples"></a>
 ## Examples

@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
     stats.print("New order");
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
-    client.shutdown(false);
+    client.shutdown(true);
 
     #if _WIN32
     std::system("pause");
